@@ -2,9 +2,13 @@ package edu.paper.guider.controller;
 
 import edu.paper.guider.dto.GuideForm;
 import edu.paper.guider.model.Guide;
+import edu.paper.guider.model.User;
 import edu.paper.guider.service.GuidesService;
+import edu.paper.guider.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,9 +18,11 @@ import java.util.List;
 @RequestMapping("/Guide")
 public class GuideController {
     GuidesService guidesService;
+    UserService userService;
 
-    public GuideController(GuidesService guidesService) {
+    public GuideController(GuidesService guidesService, UserService userService) {
         this.guidesService = guidesService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -43,5 +49,28 @@ public class GuideController {
     @ApiOperation(value = "Creates guide")
     public void creator(@RequestBody GuideForm form) {
         guidesService.save(form);
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation(value = "Creates guide")
+    public void deleter(Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getByName(String.valueOf(auth.getPrincipal()));
+
+        if (!guidesService.searchById(id).getUser().equals(user)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Not user's guide!"
+            );
+        } else {
+            if (guidesService.deleteGuide(id)) {
+                throw new ResponseStatusException(
+                        HttpStatus.OK, "ok"
+                );
+            } else {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "No such guide!"
+                );
+            }
+        }
     }
 }

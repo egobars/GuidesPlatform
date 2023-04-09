@@ -76,6 +76,18 @@ public class GuidesService {
         return guide.getText().equals(text);
     }
 
+    public boolean deleteGuide(Long id) {
+        Guide guide = searchById(id);
+
+        if (guide == null) {
+            return false;
+        } else {
+            guidesRepository.delete(guide);
+        }
+
+        return true;
+    }
+
     public void save(GuideForm form) {
         Guide guide = new Guide();
 
