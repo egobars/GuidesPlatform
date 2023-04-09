@@ -73,7 +73,7 @@ public class CommentController {
         }
     }
 
-    @PatchMapping("/create")
+    @PatchMapping("/patch")
     @ApiOperation(value = "Patch comment")
     public void patchComment(@RequestBody CommentForm form, Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
