@@ -3,6 +3,8 @@ package edu.paper.guider.service;
 import edu.paper.guider.dto.GuideForm;
 import edu.paper.guider.model.*;
 import edu.paper.guider.repo.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,6 +15,8 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class GuidesService {
+    Logger logger = LoggerFactory.getLogger(GuidesService.class);
+
     PreviewRepository previewRepository;
     CommentsRepository commentsRepository;
     ThemeRepository themeRepository;
@@ -103,7 +107,9 @@ public class GuidesService {
             }
             prev.add(preview);
         }
+        logger.info("A");
         guide.setPreview(prev);
+        logger.info("B");
 
         Set<Theme> theme = new HashSet<>();
         for (String str : form.getTheme()) {
