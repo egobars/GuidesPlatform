@@ -121,17 +121,14 @@ public class GuidesService {
 
         User user = userRepository.findByUsername(form.getUser().getUsername());
 
-        if (userRepository.findByUsername(form.getUser().getUsername()) == null) {
+        if (user == null) {
             user = new User();
 
             user.setUsername(form.getUser().getUsername());
             userRepository.save(user);
-
-            guide.setUser(user);
         }
 
         guide.setUser(user);
-        System.out.println(guide);
         guidesRepository.save(guide);
     }
 }
