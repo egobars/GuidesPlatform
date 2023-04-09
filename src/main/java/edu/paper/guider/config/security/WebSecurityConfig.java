@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/reg", "/log").not().fullyAuthenticated()
-                .antMatchers("/Guide/create", "/out", "/comment/create", "/Guide/delete").authenticated()
+                .antMatchers("/Guide/create", "/out", "/comment/create", "/Guide/delete", "/comment/patch", "/comment/delete", "/comment/vote").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

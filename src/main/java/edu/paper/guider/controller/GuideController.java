@@ -51,9 +51,9 @@ public class GuideController {
         guidesService.save(form);
     }
 
-    @PostMapping("/delete")
-    @ApiOperation(value = "Creates guide")
-    public void deleter(Long id) {
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "Deletes guide")
+    public void delete(Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getByName(String.valueOf(auth.getPrincipal()));
 

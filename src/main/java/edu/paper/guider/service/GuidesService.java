@@ -1,18 +1,10 @@
 package edu.paper.guider.service;
 
 import edu.paper.guider.dto.GuideForm;
-import edu.paper.guider.model.Guide;
-import edu.paper.guider.model.Preview;
-import edu.paper.guider.model.Theme;
-import edu.paper.guider.model.User;
-import edu.paper.guider.repo.GuidesRepository;
-import edu.paper.guider.repo.PreviewRepository;
-import edu.paper.guider.repo.ThemeRepository;
-import edu.paper.guider.repo.UserRepository;
-import org.springframework.security.core.parameters.P;
+import edu.paper.guider.model.*;
+import edu.paper.guider.repo.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,15 +14,17 @@ import java.util.stream.StreamSupport;
 @Service
 public class GuidesService {
     PreviewRepository previewRepository;
+    CommentsRepository commentsRepository;
     ThemeRepository themeRepository;
     GuidesRepository guidesRepository;
     UserRepository userRepository;
 
-    public GuidesService(ThemeRepository themeRepository, GuidesRepository guidesRepository, PreviewRepository previewRepository, UserRepository userRepository) {
+    public GuidesService(ThemeRepository themeRepository, GuidesRepository guidesRepository, PreviewRepository previewRepository, UserRepository userRepository, CommentsRepository commentsRepository) {
         this.themeRepository = themeRepository;
         this.guidesRepository = guidesRepository;
         this.previewRepository = previewRepository;
         this.userRepository = userRepository;
+        this.commentsRepository = commentsRepository;
     }
 
     public List<Guide> getAllGuides() {
@@ -84,6 +78,9 @@ public class GuidesService {
         } else {
             guidesRepository.delete(guide);
         }
+
+        List<Comment> comments = commentsRepository.findCommentsByGuide(guide);
+        commentsRepository.deleteAll(comments);
 
         return true;
     }

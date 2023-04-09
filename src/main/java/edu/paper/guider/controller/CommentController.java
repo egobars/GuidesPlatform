@@ -42,6 +42,34 @@ public class CommentController {
         }
     }
 
+    @GetMapping("/score")
+    @ApiOperation(value = "Gets comment's score")
+    public Long getScore(Long id) {
+        Comment comment = commentsService.getCommentsById(id);
+        if (comment == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "No such comment!"
+            );
+        }
+        else {
+            return commentsService.getScore(comment);
+        }
+    }
+
+    @PostMapping("/vote")
+    @ApiOperation(value = "Vote for comment")
+    public void vote(Long id, boolean upvote) {
+        if (!commentsService.vote(id, upvote)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "No such comment!"
+            );
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.OK, "ok"
+            );
+        }
+    }
+
     @GetMapping("/author")
     @ApiOperation(value = "Get comments by author")
     public List<Comment> authorComments(Long id) {

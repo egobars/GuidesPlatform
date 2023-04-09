@@ -4,9 +4,12 @@ import edu.paper.guider.dto.CommentForm;
 import edu.paper.guider.model.Comment;
 import edu.paper.guider.model.Guide;
 import edu.paper.guider.model.User;
+import edu.paper.guider.model.Vote;
 import edu.paper.guider.repo.CommentsRepository;
 import edu.paper.guider.repo.GuidesRepository;
 import edu.paper.guider.repo.UserRepository;
+import edu.paper.guider.repo.VoteRepository;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +19,13 @@ public class CommentsService {
     CommentsRepository commentsRepository;
     GuidesRepository guidesRepository;
     UserRepository userRepository;
+    VoteRepository voteRepository;
 
-    public CommentsService(CommentsRepository commentsRepository, GuidesRepository guidesRepository, UserRepository userRepository) {
+    public CommentsService(CommentsRepository commentsRepository, GuidesRepository guidesRepository, UserRepository userRepository, VoteRepository voteRepository) {
         this.commentsRepository = commentsRepository;
         this.guidesRepository = guidesRepository;
         this.userRepository = userRepository;
+        this.voteRepository = voteRepository;
     }
 
     public List<Comment> getCommentsByGuide(Long id) {
@@ -70,6 +75,36 @@ public class CommentsService {
         } else {
             return false;
         }
+        return true;
+    }
+
+    public Long getScore(Comment comment) {
+        List<Vote> votes = voteRepository.findAllByComment(comment);
+
+        long counter = 0;
+        for (Vote vote : votes) {
+            if (vote.isUpvote()) {
+                ++counter;
+            } else {
+                --counter;
+            }
+        }
+        return counter;
+    }
+
+    public boolean vote(Long id, boolean upvote) {
+        Comment comment = getCommentsById(id);
+
+        if (comment == null) {
+            return false;
+        }
+
+        Vote vote = new Vote();
+        vote.setUpvote(upvote);
+        vote.setComment(comment);
+
+        voteRepository.save(vote);
+
         return true;
     }
 }
