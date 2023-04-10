@@ -21,7 +21,7 @@ public class Guide {
     @Column(name="guide_id")
     private Long id;
 
-    @Column(name = "title", columnDefinition = "text")
+    @Column(name = "title", length = 100000)
     private String title;
 
     @ManyToOne
@@ -34,6 +34,6 @@ public class Guide {
     @OneToMany
     private Set<Theme> theme;
 
-    @Column(name = "text", columnDefinition = "text")
+    @Column(name = "text", length = 100000)
     private String text;
 }

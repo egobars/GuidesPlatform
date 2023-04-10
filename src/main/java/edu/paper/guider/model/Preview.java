@@ -19,6 +19,6 @@ public class Preview {
     @Column(name="preview_id")
     private Long id;
 
-    @Column(name = "image", columnDefinition = "text")
+    @Column(name = "image", length = 100000)
     private String image;
 }

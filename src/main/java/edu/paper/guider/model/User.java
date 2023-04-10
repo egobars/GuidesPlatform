@@ -23,13 +23,13 @@ public class User implements UserDetails {
     @Column(name="user_id")
     private Long id;
 
-    @Column(name = "username", columnDefinition = "text")
+    @Column(name = "username", length = 100000)
     private String username;
 
-    @Column(name = "password", columnDefinition = "text")
+    @Column(name = "password", length = 100000)
     private String password;
 
-    @Column(name = "email", columnDefinition = "text")
+    @Column(name = "email", length = 100000)
     private String email;
 
     @Override

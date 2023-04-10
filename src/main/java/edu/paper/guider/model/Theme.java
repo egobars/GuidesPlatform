@@ -19,6 +19,6 @@ public class Theme {
     @Column(name="theme_id")
     private Long id;
 
-    @Column(name = "theme_title", columnDefinition = "text")
+    @Column(name = "theme_title", length = 100000)
     private String title;
 }
