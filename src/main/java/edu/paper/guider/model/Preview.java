@@ -19,7 +19,6 @@ public class Preview {
     @Column(name="preview_id")
     private Long id;
 
-    @Column(name = "image")
-    @Lob
+    @Column(name = "image", columnDefinition = "NVARCHAR(MAX)")
     private String image;
 }

@@ -19,7 +19,6 @@ public class Theme {
     @Column(name="theme_id")
     private Long id;
 
-    @Column(name = "theme_title")
-    @Lob
+    @Column(name = "theme_title", columnDefinition = "NVARCHAR(MAX)")
     private String title;
 }

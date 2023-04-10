@@ -19,7 +19,7 @@ public class Comment {
     @Column(name="comment_id")
     private Long id;
 
-    @Column(name = "text", length = 100000)
+    @Column(name = "text", columnDefinition = "NVARCHAR(MAX)")
     private String text;
 
     @ManyToOne
