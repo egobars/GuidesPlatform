@@ -42,8 +42,10 @@ public class GuidesService {
 
         for (String name : theme) {
             for (Guide guide : allGuides) {
-                if (guide.getTheme().contains(themeRepository.findThemeByTitle(name))) {
-                    guides.add(guide);
+                for (Theme themer : themeRepository.findAllByTitle(name)) {
+                    if (guide.getTheme().contains(themer)) {
+                        guides.add(guide);
+                    }
                 }
             }
         }
@@ -55,8 +57,10 @@ public class GuidesService {
         List<Guide> allGuides = this.getAllGuides();
 
         for (Guide guide : allGuides) {
-            if (guide.getTheme().contains(themeRepository.findThemeByTitle(theme))) {
-                guides.add(guide);
+            for (Theme themer : themeRepository.findAllByTitle(theme)) {
+                if (guide.getTheme().contains(themer)) {
+                    guides.add(guide);
+                }
             }
         }
         return guides;

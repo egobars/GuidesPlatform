@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ThemeRepository extends CrudRepository<Theme, Long> {
-    Theme findThemeByTitle(String title);
+    List<Theme> findAllByTitle(String title);
 }
