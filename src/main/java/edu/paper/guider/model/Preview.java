@@ -19,6 +19,7 @@ public class Preview {
     @Column(name="preview_id")
     private Long id;
 
-    @Column(name = "image", length = 100000)
+    @Column(name = "image")
+    @Lob
     private String image;
 }
