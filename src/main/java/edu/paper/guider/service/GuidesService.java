@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,19 +37,29 @@ public class GuidesService {
     }
 
     public List<Guide> searchByTheme(List<String> theme) {
-        Set<Theme> themes = new HashSet<>();
+        List<Guide> guides = new ArrayList<>();
+        List<Guide> allGuides = this.getAllGuides();
 
         for (String name : theme) {
-            themes.add(themeRepository.findThemeByTitle(name));
+            for (Guide guide : allGuides) {
+                if (guide.getTheme().contains(themeRepository.findThemeByTitle(name))) {
+                    guides.add(guide);
+                }
+            }
         }
-        return guidesRepository.findAllByThemeIn(themes);
+        return guides;
     }
 
     public List<Guide> searchByTheme(String theme) {
-        Set<Theme> themes = new HashSet<>();
-        themes.add(themeRepository.findThemeByTitle(theme));
+        List<Guide> guides = new ArrayList<>();
+        List<Guide> allGuides = this.getAllGuides();
 
-        return guidesRepository.findAllByThemeIn(themes);
+        for (Guide guide : allGuides) {
+            if (guide.getTheme().contains(themeRepository.findThemeByTitle(theme))) {
+                guides.add(guide);
+            }
+        }
+        return guides;
     }
 
     public Guide searchById(Long id) {
@@ -100,26 +111,28 @@ public class GuidesService {
             Preview preview = previewRepository.findPreviewByImage(str);
             if (preview == null) {
                 preview = new Preview();
-
                 preview.setImage(str);
 
                 previewRepository.save(preview);
+            } else {
+                preview = new Preview();
+                preview.setImage(str);
             }
             prev.add(preview);
         }
-        logger.info("A");
         guide.setPreview(prev);
-        logger.info("B");
 
         Set<Theme> theme = new HashSet<>();
         for (String str : form.getTheme()) {
             Theme themer = themeRepository.findThemeByTitle(str);
             if (themer == null) {
                 themer = new Theme();
-
                 themer.setTitle(str);
 
                 themeRepository.save(themer);
+            } else {
+                themer = new Theme();
+                themer.setTitle(str);
             }
             theme.add(themer);
         }

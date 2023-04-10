@@ -13,7 +13,5 @@ import java.util.Set;
 
 @Repository
 public interface GuidesRepository extends CrudRepository<Guide, Long> {
-    List<Guide> findAllByThemeIn(Set<Theme> theme);
-
     Optional<Guide> findById(Long id);
 }
