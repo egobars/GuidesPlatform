@@ -108,32 +108,21 @@ public class GuidesService {
 
         Set<Preview> prev = new HashSet<>();
         for (String str : form.getPreview()) {
-            Preview preview = previewRepository.findPreviewByImage(str);
-            if (preview == null) {
-                preview = new Preview();
-                preview.setImage(str);
+            Preview preview = new Preview();
+            preview.setImage(str);
 
-                previewRepository.save(preview);
-            } else {
-                preview = new Preview();
-                preview.setImage(str);
-            }
+            previewRepository.save(preview);
             prev.add(preview);
         }
         guide.setPreview(prev);
 
         Set<Theme> theme = new HashSet<>();
         for (String str : form.getTheme()) {
-            Theme themer = themeRepository.findThemeByTitle(str);
-            if (themer == null) {
-                themer = new Theme();
-                themer.setTitle(str);
+            Theme themer = new Theme();
+            themer.setTitle(str);
 
-                themeRepository.save(themer);
-            } else {
-                themer = new Theme();
-                themer.setTitle(str);
-            }
+            themeRepository.save(themer);
+
             theme.add(themer);
         }
         guide.setTheme(theme);
