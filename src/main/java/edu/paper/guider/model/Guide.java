@@ -21,7 +21,7 @@ public class Guide {
     @Column(name="guide_id")
     private Long id;
 
-    @Column(name = "title", columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "title")
     private String title;
 
     @ManyToOne
