@@ -22,7 +22,4 @@ public class Theme {
 
     @Column(name = "theme_title", columnDefinition = "NVARCHAR(MAX)")
     private String title;
-
-    @ManyToMany
-    private Set<User> users;
 }

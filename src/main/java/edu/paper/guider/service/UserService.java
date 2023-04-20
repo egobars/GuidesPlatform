@@ -51,6 +51,7 @@ public class UserService implements UserDetailsService {
         user.setUsername(form.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(form.getPassword()));
         user.setEmail(form.getEmail());
+        user.setThemes(new HashSet<>());
 
         userRepository.save(user);
     }

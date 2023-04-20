@@ -32,7 +32,7 @@ public class User implements UserDetails {
     @Column(name = "email", columnDefinition = "NVARCHAR(MAX)")
     private String email;
 
-    @ManyToMany
+    @OneToMany(mappedBy="cart")
     private Set<Theme> themes;
 
     @Override
