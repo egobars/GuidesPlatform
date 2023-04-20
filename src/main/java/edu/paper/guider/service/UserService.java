@@ -17,10 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService implements UserDetailsService {
     UserRepository userRepository;
     ThemeRepository themeRepository;
