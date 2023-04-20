@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashSet;
 import java.util.List;
@@ -72,7 +73,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public void addTheme(List<String> themes, User user) {
+    public void addTheme(@RequestBody List<String> themes, User user) {
         User current = userRepository.findByUsername(user.getUsername());
 
         if (current.getThemes() == null) {
