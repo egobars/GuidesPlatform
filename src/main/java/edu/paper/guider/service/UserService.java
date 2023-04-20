@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserService implements UserDetailsService {
     UserRepository userRepository;
     ThemeRepository themeRepository;
@@ -53,7 +52,6 @@ public class UserService implements UserDetailsService {
         user.setUsername(form.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(form.getPassword()));
         user.setEmail(form.getEmail());
-        user.setThemes(new HashSet<>());
 
         userRepository.save(user);
     }
@@ -74,25 +72,6 @@ public class UserService implements UserDetailsService {
             }
         }
         return true;
-    }
-
-    public void addTheme(@RequestBody List<String> themes, User user) {
-        User current = userRepository.findByUsername(user.getUsername());
-
-        if (current.getThemes() == null) {
-            current.setThemes(new HashSet<>());
-        }
-        for (String str : themes) {
-            Theme theme;
-            if (themeRepository.findAllByTitle(str).isEmpty()) {
-                theme = new Theme();
-                theme.setTitle(str);
-                themeRepository.save(theme);
-            } else {
-                theme = themeRepository.findAllByTitle(str).get(0);
-            }
-            current.getThemes().add(theme);
-        }
     }
 
     public User getByName(String name) {

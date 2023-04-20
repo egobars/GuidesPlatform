@@ -81,8 +81,6 @@ public class UserController {
     public void fav(List<String> themes) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User current = (User)auth.getPrincipal();
-
-        userService.addTheme(themes, current);
     }
 
     private void authenticateUserAndSetSession(String username, String password, HttpServletRequest request) {

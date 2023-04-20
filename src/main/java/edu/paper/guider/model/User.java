@@ -35,9 +35,6 @@ public class User implements UserDetails {
     @Column(name = "email", columnDefinition = "NVARCHAR(MAX)")
     private String email;
 
-    @OneToMany
-    private Set<Theme> themes = new HashSet<>();
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

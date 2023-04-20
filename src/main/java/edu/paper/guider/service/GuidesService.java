@@ -150,13 +150,7 @@ public class GuidesService {
 
     private void sendEmail(List<String> themes) {
         for (User user : userRepository.findAll()) {
-            for (String str : themes) {
-                for (Theme theme : user.getThemes()) {
-                    if (theme.getTitle().equals(str)) {
-                        emailService.sendEmail(user.getEmail(), "New Guide!", "There are some new guides out there!");
-                    }
-                }
-            }
+            emailService.sendEmail(user.getEmail(), "New Guide!", "There are some new guides out there!");
         };
     }
 }
