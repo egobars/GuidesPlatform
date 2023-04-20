@@ -33,6 +33,7 @@ public class User implements UserDetails {
     private String email;
 
     @OneToMany
+    @Column(name = "themes")
     private Set<Theme> themes;
 
     @Override
