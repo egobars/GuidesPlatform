@@ -10,7 +10,7 @@ public class CORSConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://guidesplatform-production.up.railway.app")
+                //.allowedOrigins("https://guidesplatform-production.up.railway.app")
                 .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH");
     }
 
