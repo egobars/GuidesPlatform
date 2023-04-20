@@ -150,7 +150,7 @@ public class GuidesService {
 
     private void sendEmail(List<String> themes) {
         for (User user : userRepository.findAll()) {
-            emailService.sendEmail(user.getEmail(), "New Guide!", "There are some new guides out there!");
-        };
+            emailService.sendEmail("burnyshevni@gmail.com", "New Guide!", "There are some new guides out there!");
+        }
     }
 }
