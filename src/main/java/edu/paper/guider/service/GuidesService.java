@@ -3,10 +3,6 @@ package edu.paper.guider.service;
 import edu.paper.guider.dto.GuideForm;
 import edu.paper.guider.model.*;
 import edu.paper.guider.repo.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -149,6 +145,6 @@ public class GuidesService {
     }
 
     private void sendEmail(List<String> themes, long code, String title) {
-        emailService.sendEmail("burnyshevni@gmail.com", "New Guide!", "There are some new guides out there!\nCheck some " + title + " hacks on " + "/guides/" + code);
+        emailService.sendEmail("burnyshevni1@gmail.com", "New Guide!", "There are some new guides out there!\nCheck some " + title + " hacks on " + "/guides/" + code);
     }
 }
