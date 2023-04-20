@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "users")
 @Entity
+@Transactional
 public class User implements UserDetails {
     @Id
     @GeneratedValue
@@ -33,7 +35,6 @@ public class User implements UserDetails {
     private String email;
 
     @OneToMany
-    @Column(name = "themes")
     private Set<Theme> themes;
 
     @Override
