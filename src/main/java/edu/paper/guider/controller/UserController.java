@@ -2,9 +2,12 @@ package edu.paper.guider.controller;
 
 import edu.paper.guider.dto.LoginForm;
 import edu.paper.guider.dto.RegistrationForm;
+import edu.paper.guider.model.User;
 import edu.paper.guider.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -70,6 +74,15 @@ public class UserController {
     public Object user() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getPrincipal();
+    }
+
+    @PostMapping("/favs")
+    @ApiOperation(value = "Adding favourite themes")
+    public void fav(List<String> themes) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User current = (User)auth.getPrincipal();
+
+        userService.addTheme(themes, current);
     }
 
     private void authenticateUserAndSetSession(String username, String password, HttpServletRequest request) {

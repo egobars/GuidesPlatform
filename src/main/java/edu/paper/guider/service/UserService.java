@@ -2,19 +2,27 @@ package edu.paper.guider.service;
 
 import edu.paper.guider.dto.LoginForm;
 import edu.paper.guider.dto.RegistrationForm;
+import edu.paper.guider.model.Theme;
 import edu.paper.guider.model.User;
+import edu.paper.guider.repo.ThemeRepository;
 import edu.paper.guider.repo.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsService {
     UserRepository userRepository;
+    ThemeRepository themeRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -62,6 +70,25 @@ public class UserService implements UserDetailsService {
             }
         }
         return true;
+    }
+
+    public void addTheme(List<String> themes, User user) {
+        User current = userRepository.findByUsername(user.getUsername());
+
+        if (current.getThemes() == null) {
+            current.setThemes(new HashSet<>());
+        }
+        for (String str : themes) {
+            Theme theme;
+            if (themeRepository.findAllByTitle(str).isEmpty()) {
+                theme = new Theme();
+                theme.setTitle(str);
+                themeRepository.save(theme);
+            } else {
+                theme = themeRepository.findAllByTitle(str).get(0);
+            }
+            current.getThemes().add(theme);
+        }
     }
 
     public User getByName(String name) {

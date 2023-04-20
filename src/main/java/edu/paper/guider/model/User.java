@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column(name = "email", columnDefinition = "NVARCHAR(MAX)")
     private String email;
 
+    @ManyToMany
+    private Set<Theme> themes;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

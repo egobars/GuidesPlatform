@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,7 @@ public class Theme {
 
     @Column(name = "theme_title", columnDefinition = "NVARCHAR(MAX)")
     private String title;
+
+    @ManyToMany
+    private Set<User> users;
 }

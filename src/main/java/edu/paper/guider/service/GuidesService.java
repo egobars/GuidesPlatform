@@ -5,6 +5,8 @@ import edu.paper.guider.model.*;
 import edu.paper.guider.repo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,20 +18,20 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class GuidesService {
-    Logger logger = LoggerFactory.getLogger(GuidesService.class);
-
+    EmailService emailService;
     PreviewRepository previewRepository;
     CommentsRepository commentsRepository;
     ThemeRepository themeRepository;
     GuidesRepository guidesRepository;
     UserRepository userRepository;
 
-    public GuidesService(ThemeRepository themeRepository, GuidesRepository guidesRepository, PreviewRepository previewRepository, UserRepository userRepository, CommentsRepository commentsRepository) {
+    public GuidesService(ThemeRepository themeRepository, GuidesRepository guidesRepository, PreviewRepository previewRepository, UserRepository userRepository, CommentsRepository commentsRepository, EmailService service) {
         this.themeRepository = themeRepository;
         this.guidesRepository = guidesRepository;
         this.previewRepository = previewRepository;
         this.userRepository = userRepository;
         this.commentsRepository = commentsRepository;
+        this.emailService = service;
     }
 
     public List<Guide> getAllGuides() {
@@ -142,5 +144,19 @@ public class GuidesService {
 
         guide.setUser(user);
         guidesRepository.save(guide);
+
+        sendEmail(form.getTheme());
+    }
+
+    private void sendEmail(List<String> themes) {
+        for (User user : userRepository.findAll()) {
+            for (String str : themes) {
+                for (Theme theme : user.getThemes()) {
+                    if (theme.getTitle().equals(str)) {
+                        emailService.sendEmail(user.getEmail(), "New Guide!", "There are some new guides out there!");
+                    }
+                }
+            }
+        };
     }
 }
