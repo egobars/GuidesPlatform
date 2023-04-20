@@ -149,8 +149,6 @@ public class GuidesService {
     }
 
     private void sendEmail(List<String> themes, long code, String title) {
-        for (User user : userRepository.findAll()) {
-            emailService.sendEmail("burnyshevni@gmail.com", "New Guide!", "There are some new guides out there!\nCheck some " + title + " hacks on " + "/guides/" + code);
-        }
+        emailService.sendEmail("burnyshevni@gmail.com", "New Guide!", "There are some new guides out there!\nCheck some " + title + " hacks on " + "/guides/" + code);
     }
 }
