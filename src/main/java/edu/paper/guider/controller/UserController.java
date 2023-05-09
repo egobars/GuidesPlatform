@@ -65,7 +65,7 @@ public class UserController {
                     HttpStatus.BAD_REQUEST, "Bad credentials!"
             );
         } else {
-            this.authenticateUserAndSetSession(form.getUsername(), form.getPassword(), request);
+            this.authenticateUserAndSetSession(form.getEmail(), form.getPassword(), request);
         }
     }
 
@@ -78,7 +78,7 @@ public class UserController {
 
     @PostMapping("/favs")
     @ApiOperation(value = "Adding favourite themes")
-    public void fav(List<String> themes) {
+    public void fav() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User current = (User)auth.getPrincipal();
     }

@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean checkUser(LoginForm form) {
-        User user = userRepository.findByUsername(form.getUsername());
+        User user = userRepository.findByUsername(form.getEmail());
 
         if (user == null) {
             return false;
