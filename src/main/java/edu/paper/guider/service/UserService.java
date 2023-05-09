@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean checkUser(LoginForm form) {
-        User user = userRepository.findByEmail(form.getEmail()).get(0);
+        User user = userRepository.findByEmail(form.getEmail());
 
         if (user == null) {
             return false;
@@ -72,6 +72,10 @@ public class UserService implements UserDetailsService {
             }
         }
         return true;
+    }
+
+    public String nameByEmail(String email) {
+        return userRepository.findByEmail(email).getUsername();
     }
 
     public User getByName(String name) {

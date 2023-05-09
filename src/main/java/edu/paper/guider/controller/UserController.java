@@ -65,7 +65,7 @@ public class UserController {
                     HttpStatus.BAD_REQUEST, "Bad credentials!"
             );
         } else {
-            this.authenticateUserAndSetSession(form.getEmail(), form.getPassword(), request);
+            this.authenticateUserAndSetSession(userService.nameByEmail(form.getEmail()), form.getPassword(), request);
         }
     }
 
