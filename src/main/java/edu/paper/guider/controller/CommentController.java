@@ -89,10 +89,7 @@ public class CommentController {
     public void createComment(@RequestBody CommentForm form) {
         // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // User user = userService.getByName("aaa");
-        throw new ResponseStatusException(
-                HttpStatus.OK, "ok"
-        );
-        /*if (!commentsService.saveComment(form)) {
+        if (!commentsService.saveComment(form)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "No such comment!"
             );
@@ -100,7 +97,7 @@ public class CommentController {
             throw new ResponseStatusException(
                     HttpStatus.OK, "ok"
             );
-        }*/
+        }
     }
 
     @PatchMapping("/patch")
