@@ -140,11 +140,5 @@ public class GuidesService {
 
         guide.setUser(user);
         guidesRepository.save(guide);
-
-        sendEmail(form.getTheme(), guide.getId(), form.getTitle());
-    }
-
-    private void sendEmail(List<String> themes, long code, String title) {
-        emailService.sendEmail("burnyshevni1@gmail.com", "New Guide!", "There are some new guides out there!\nCheck some " + title + " hacks on " + "/guides/" + code);
     }
 }

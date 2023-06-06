@@ -87,8 +87,8 @@ public class CommentController {
     @PostMapping("/create")
     @ApiOperation(value = "Create comment")
     public void createComment(@RequestBody CommentForm form) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getByName(String.valueOf(auth.getPrincipal()));
+        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getByName("aaa");
 
         if (!commentsService.saveComment(form, user)) {
             throw new ResponseStatusException(
