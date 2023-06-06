@@ -54,10 +54,10 @@ public class CommentsService {
         return commentsRepository.findCommentById(id);
     }
 
-    public boolean saveComment(CommentForm form, User user) {
+    public boolean saveComment(CommentForm form/*, User user*/) {
         Comment comment = new Comment();
 
-        comment.setUser(user);
+        // comment.setUser(user);
         comment.setText(form.getText());
         if (guidesRepository.findById(form.getId()).isPresent()) {
             comment.setGuide(guidesRepository.findById(form.getId()).get());

@@ -88,9 +88,9 @@ public class CommentController {
     @ApiOperation(value = "Create comment")
     public void createComment(@RequestBody CommentForm form) {
         // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getByName("aaa");
+        // User user = userService.getByName("aaa");
 
-        if (!commentsService.saveComment(form, user)) {
+        if (!commentsService.saveComment(form)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "No such comment!"
             );
@@ -113,7 +113,7 @@ public class CommentController {
             );
         } else {
             if (commentsService.deleteComment(id)) {
-                if (!commentsService.saveComment(form, user)) {
+                if (!commentsService.saveComment(form)) {
                     throw new ResponseStatusException(
                             HttpStatus.BAD_REQUEST, "No such comment!"
                     );
