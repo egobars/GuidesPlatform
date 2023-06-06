@@ -88,7 +88,7 @@ public class CommentController {
     @ApiOperation(value = "Create comment")
     public void createComment(@RequestBody CommentForm form) {
         // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getByName("aaa");
+        // User user = userService.getByName("aaa");
         throw new ResponseStatusException(
                 HttpStatus.OK, "ok"
         );
