@@ -67,6 +67,9 @@ public class UserService implements UserDetailsService {
 
     public boolean checkNames(String name) {
         for (User user : userRepository.findAll()) {
+            if (user.getUsername() == null) {
+                continue;
+            }
             if (user.getUsername().equals(name)) {
                 return false;
             }
